@@ -2883,6 +2883,7 @@ namespace Nippy_Notes
 
         #region Logger
 
+        //Ensures the ActivityLog table is created if not exists.
 public static void EnsureActivityLogTable()
         {
             using (var connection = new SQLiteConnection(GetDatabasePath()))
