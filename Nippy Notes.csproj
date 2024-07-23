@@ -1,0 +1,633 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8ED582DF-87A4-4977-9BB5-B0E15F4E458C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Nippy_Notes</RootNamespace>
+    <AssemblyName>Nippy Notes</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Azure.Core, Version=1.35.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>packages\Azure.Core.1.35.0\lib\net472\Azure.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Identity, Version=1.10.3.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>packages\Azure.Identity.1.10.3\lib\netstandard2.0\Azure.Identity.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.Desktop.v23.2, Version=23.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v23.2, Version=23.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Drawing.v23.2, Version=23.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v23.2, Version=23.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v23.2, Version=23.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v23.2, Version=23.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.1.1.1\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.SqlClient, Version=5.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Data.SqlClient.5.2.0\lib\net462\Microsoft.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client, Version=4.56.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Identity.Client.4.56.0\lib\net461\Microsoft.Identity.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client.Extensions.Msal, Version=4.56.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Identity.Client.Extensions.Msal.4.56.0\lib\netstandard2.0\Microsoft.Identity.Client.Extensions.Msal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.Abstractions.6.35.0\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.JsonWebTokens.6.35.0\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.Logging.6.35.0\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.Protocols.6.35.0\lib\net472\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.6.35.0\lib\net472\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.Tokens.6.35.0\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Office.Interop.Outlook.15.0.4797.1004\lib\net20\Microsoft.Office.Interop.Outlook.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Registry, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Win32.Registry.4.7.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>packages\NAudio.2.2.1\lib\net472\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Asio, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>packages\NAudio.Asio.2.2.1\lib\netstandard2.0\NAudio.Asio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>packages\NAudio.Core.2.2.1\lib\netstandard2.0\NAudio.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Midi, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>packages\NAudio.Midi.2.2.1\lib\netstandard2.0\NAudio.Midi.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Wasapi, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>packages\NAudio.Wasapi.2.2.1\lib\netstandard2.0\NAudio.Wasapi.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.WinForms, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>packages\NAudio.WinForms.2.2.1\lib\net472\NAudio.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.WinMM, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>packages\NAudio.WinMM.2.2.1\lib\netstandard2.0\NAudio.WinMM.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=6.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Configuration.ConfigurationManager.6.0.1\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.6, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SqlClient.4.8.6\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SQLite.EF6.1.0.118.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SQLite.Linq.1.0.118.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=6.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Diagnostics.DiagnosticSource.6.0.1\lib\net461\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\System.IdentityModel.Tokens.Jwt.6.35.0\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.FileSystem.AccessControl.5.0.0\lib\net461\System.IO.FileSystem.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory.Data, Version=1.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.Data.1.0.2\lib\net461\System.Memory.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.AccessControl.6.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Cng, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.Cryptography.Cng.5.0.0\lib\net47\System.Security.Cryptography.Cng.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.ProtectedData, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.Cryptography.ProtectedData.4.7.0\lib\net461\System.Security.Cryptography.ProtectedData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.Permissions.6.0.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Json.4.7.2\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main Forms\AttachmentPreviewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main Forms\AttachmentPreviewForm.Designer.cs">
+      <DependentUpon>AttachmentPreviewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Backups\BackupHistoryManager.cs" />
+    <Compile Include="Backups\BackupRecord.cs" />
+    <Compile Include="Main Forms\BugForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main Forms\BugForm.Designer.cs">
+      <DependentUpon>BugForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DatabaseHelper.cs" />
+    <Compile Include="Database\DBWarningForm .cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\DBWarningForm .Designer.cs">
+      <DependentUpon>DBWarningForm .cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main Forms\ExpandedNoteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main Forms\ExpandedNoteForm.Designer.cs">
+      <DependentUpon>ExpandedNoteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main Forms\FeedbackForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main Forms\FeedbackForm.Designer.cs">
+      <DependentUpon>FeedbackForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUtilities.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="Main Forms\NippyNotes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main Forms\NippyNotes.Designer.cs">
+      <DependentUpon>NippyNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RichTextBoxHelper.cs" />
+    <Compile Include="Security\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Security\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Security\NewPasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Security\NewPasswordForm.Designer.cs">
+      <DependentUpon>NewPasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Security\PasswordEntryFormDisableSecure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Security\PasswordEntryFormDisableSecure.Designer.cs">
+      <DependentUpon>PasswordEntryFormDisableSecure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Security\PasswordEntryFormSecure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Security\PasswordEntryFormSecure.Designer.cs">
+      <DependentUpon>PasswordEntryFormSecure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Security\PasswordSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Security\PasswordSetupForm.Designer.cs">
+      <DependentUpon>PasswordSetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Main Forms\SearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main Forms\SearchForm.Designer.cs">
+      <DependentUpon>SearchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\ResetPasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Security\ResetPasswordForm.Designer.cs">
+      <DependentUpon>ResetPasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Security\SecurityHelper.cs" />
+    <Compile Include="Main Forms\Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main Forms\Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main Forms\TopNotesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main Forms\TopNotesForm.Designer.cs">
+      <DependentUpon>TopNotesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main Forms\TranslationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main Forms\TranslationForm.Designer.cs">
+      <DependentUpon>TranslationForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Main Forms\AttachmentPreviewForm.resx">
+      <DependentUpon>AttachmentPreviewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main Forms\BugForm.resx">
+      <DependentUpon>BugForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\DBWarningForm .resx">
+      <DependentUpon>DBWarningForm .cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main Forms\ExpandedNoteForm.resx">
+      <DependentUpon>ExpandedNoteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main Forms\FeedbackForm.resx">
+      <DependentUpon>FeedbackForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main Forms\NippyNotes.resx">
+      <DependentUpon>NippyNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main Forms\SearchForm.resx">
+      <DependentUpon>SearchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Security\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Security\NewPasswordForm.resx">
+      <DependentUpon>NewPasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Security\PasswordEntryFormDisableSecure.resx">
+      <DependentUpon>PasswordEntryFormDisableSecure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Security\PasswordEntryFormSecure.resx">
+      <DependentUpon>PasswordEntryFormSecure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Security\PasswordSetupForm.resx">
+      <DependentUpon>PasswordSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Security\ResetPasswordForm.resx">
+      <DependentUpon>ResetPasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main Forms\Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main Forms\TopNotesForm.resx">
+      <DependentUpon>TopNotesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main Forms\TranslationForm.resx">
+      <DependentUpon>TranslationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.manifest" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nippy Notes %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2024-04-16 18_48_17-Edit your own logo - LogoAI.com %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2024-04-16 18_48_17-Edit your own logo - LogoAI.com.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2024-04-16 18_48_17-Edit your own logo - LogoAI.com %281%291.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2024-04-16 18_48_17-Edit your own logo - LogoAI.com %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2024-04-16 18_48_17-Edit your own logo - LogoAI.com %283%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="ADODB">
+      <Guid>{B691E011-1797-432E-907A-4D8C69339129}</Guid>
+      <VersionMajor>6</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="ADOX">
+      <Guid>{00000600-0000-0010-8000-00AA006D2EA4}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2024-04-25 16_54_49-Edit your own logo - LogoAI.com.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2024-04-25 16_54_49-Edit your own logo - LogoAI.com1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-right %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-right %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-right %283%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ButtonLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2024-05-25 09_50_59-Edit your own logo - LogoAI.com.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2024-05-25 09_56_13-Edit your own logo - LogoAI.com.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\egg1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ghost1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pumpkin1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\egg2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ghost2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\christmas_tree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\santa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\snowflake1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\snowflake2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\snowman.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ghost3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maximize %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maximize %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maximize %283%29 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maximize %283%29 %281%291.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maximize %283%29 %281%29 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Logo.ico" />
+    <None Include="Resources\remove %281%29.png" />
+    <None Include="Resources\NippyNotesWhite %281%29.png" />
+    <None Include="Resources\NippyNotesWhite1.png" />
+    <None Include="Resources\NippyNotesWhite.png" />
+    <None Include="Resources\Search.png" />
+    <None Include="Resources\strikethrough %281%29.png" />
+    <None Include="Resources\font-symbol-of-letter-a %281%29.png" />
+    <None Include="Resources\underline-text-option %281%29 %281%29.png" />
+    <None Include="Resources\italic %281%29.png" />
+    <None Include="Resources\bold-text-option %281%29.png" />
+    <None Include="Resources\bold %281%29.png" />
+    <None Include="Resources\align-right %281%29.png" />
+    <None Include="Resources\align-center %281%29.png" />
+    <None Include="Resources\center-align %281%29.png" />
+    <None Include="Resources\align-left %282%29.png" />
+    <None Include="Resources\align-left %281%29.png" />
+    <None Include="Resources\pumpkin2.png" />
+    <None Include="Resources\AHAH1.wav" />
+    <None Include="Resources\2024-04-28 10_54_02-Nippy Notes %28Running%29 - Microsoft Visual Studio.png" />
+    <None Include="Resources\ahah.gif" />
+    <None Include="Resources\paper-clip %281%29.png" />
+    <None Include="Resources\attach %281%29.png" />
+    <None Include="Resources\attach-file %281%29 %281%29 %281%29.png" />
+    <None Include="Resources\attach-file %281%29 %281%29.png" />
+    <None Include="Resources\open %282%29.png" />
+    <None Include="Resources\open %281%29.png" />
+    <None Include="Resources\trash-bin %281%29.png" />
+    <None Include="Resources\attach-file %281%29.png" />
+    <None Include="Resources\sync %282%29.png" />
+    <None Include="Resources\sync %281%29.png" />
+    <None Include="Resources\delete %282%29 %282%29.png" />
+    <None Include="Resources\delete %282%29 %281%29.png" />
+    <None Include="Resources\save %281%29 %281%29.png" />
+    <None Include="Resources\settings %281%29.png" />
+    <None Include="Resources\top-10 %281%29.png" />
+    <None Include="Resources\writing %281%29.png" />
+    <None Include="Resources\magnifying-glass %281%29.png" />
+    <None Include="Resources\delete %282%29.png" />
+    <None Include="Resources\save %281%29.png" />
+    <None Include="Resources\mail 2%281%29.png" />
+    <None Include="Resources\mail %281%29.png" />
+    <None Include="Resources\btnEmail %282%29.png" />
+    <None Include="Resources\BtnEmail.png" />
+    <None Include="Resources\BtnExport1.png" />
+    <None Include="Resources\BtnExport.png" />
+    <None Include="Resources\download %281%29.png" />
+    <None Include="Resources\BtnImport.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+  </Target>
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+</Project>
