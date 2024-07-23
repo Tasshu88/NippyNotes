@@ -24,7 +24,6 @@ using System.Diagnostics;
 using static Nippy_Notes.NippyNotes;
 using Nippy_Notes;
 using Nippy_Notes.Helpers;
-using DevExpress.Utils.Serializing;
 
 
 /*
@@ -2929,8 +2928,6 @@ SettingID INTEGER PRIMARY KEY AUTOINCREMENT,
         {
             // Opens the current note in an email client as an attachment.
             // Prepares and sends the note via email.
-
-            IntegerContextAttribute x = new IntegerContextAttribute(null, 0, 0);
 
             // Check if a note is currently selected/opened
             if (currentNoteId == Guid.Empty || string.IsNullOrEmpty(TextBoxID.Text))
