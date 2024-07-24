@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 public static class BackupHistoryManager
 {
 
-    // File path for backup history file in ApplicationData folder NOT program files
+    // File path for backup history file in ApplicationData folder NOT program files.
     private static readonly string backupHistoryFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "NippyNotes", "BackupHistory.json");
 
     // Save the backup history to a JSON file
