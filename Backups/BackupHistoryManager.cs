@@ -53,10 +53,14 @@ public static class BackupHistoryManager
             // Check if the file path is not empty or null
             if (!string.IsNullOrEmpty(filePath))
             {
+                // Log file path before attempting deletion
+                Console.WriteLine($"Attempting to delete backup: FilePath = {filePath}");
+
                 // Delete the file from the file system
                 if (File.Exists(filePath))
                 {
                     File.Delete(filePath);
+                    Console.WriteLine($"File deleted from file system: {filePath}");
                 }
 
                 // Remove the backup record from the JSON file
@@ -65,10 +69,18 @@ public static class BackupHistoryManager
                 var recordToDelete = backupRecords.FirstOrDefault(record => record.FilePath == filePath);
                 if (recordToDelete != null)
                 {
+                    // Log the details of the record being deleted
+                    Console.WriteLine($"Record found for deletion: BackupName = {recordToDelete.BackupName}, Location = {recordToDelete.Location}, FilePath = {recordToDelete.FilePath}, Date = {recordToDelete.Date}");
+
                     // Remove the found record from the list
                     backupRecords.Remove(recordToDelete);
+                    Console.WriteLine($"Record removed from backup history: {filePath}");
                     // Save the updated backup history back to the file
                     SaveBackupHistory(backupRecords);
+                }
+                else
+                {
+                    Console.WriteLine($"Record not found in backup history for: {filePath}");
                 }
             }
             else
@@ -78,6 +90,8 @@ public static class BackupHistoryManager
         }
         catch (Exception ex)
         {
+            // Log the exception for debugging purposes
+            Console.WriteLine($"An error occurred while deleting the file: {ex.Message}");
             // Throw an exception if an error occurs while deleting the file
             throw new Exception($"An error occurred while deleting the file: {ex.Message}");
         }

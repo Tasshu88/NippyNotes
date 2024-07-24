@@ -625,6 +625,14 @@ namespace Nippy_Notes
             {
                 var selectedRow = dataGridViewBackups.SelectedRows[0];
                 var filePath = selectedRow.Cells["FilePath"].Value?.ToString();
+                //it's deleting all rows and not the one I'm selecting
+                var backupName = selectedRow.Cells["BackupName"].Value?.ToString();
+                var location = selectedRow.Cells["location"].Value?.ToString();
+                var date = selectedRow.Cells["date"].Value?.ToString();
+
+                //debug if fails
+                Console.WriteLine($"Selected backupd for deletion: BackupName = {backupName}, Location = {location}, FilePath = {filePath}, Date = {date}");
+
 
                 try
                 {
