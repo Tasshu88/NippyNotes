@@ -2190,7 +2190,7 @@ SettingID INTEGER PRIMARY KEY AUTOINCREMENT,
 
                 XDocument doc = new XDocument(
                     new XElement("Note",
-                        new XElement("Version", version),  // Ensure Version is included
+                        new XElement("Version", version),  // Ensure Version is included, how would I implement V2 with people on older versions??
                         new XElement("DatabaseID", databaseId),
                         new XElement("NoteID", note.NoteID),
                         new XElement("NoteNumber", note.NoteNumber),
