@@ -56,8 +56,7 @@ namespace Nippy_Notes
             BtnAutoProcessDB.Click += BtnAutoProcessDB_Click;
             BtnRestoreDB.Click += BtnRestoreDB_Click;
 
-            // Add the new delete button event handler
-            BtnDelete.Click += BtnDelete_Click;
+            BtnDeleteDatabase.Click += BtnDeleteDatabase_Click;
 
             // Set the placeholder text initially
             SetPlaceholderText();
@@ -94,7 +93,7 @@ namespace Nippy_Notes
             toolTipSettings.SetToolTip(BtnManualProcessDB, "Process manual database backup.");
             toolTipSettings.SetToolTip(BtnAutoProcessDB, "Process automatic database backup.");
             toolTipSettings.SetToolTip(BtnUploadDB, "Upload a database file.");
-            toolTipSettings.SetToolTip(BtnDelete, "Delete a selected database backup.");
+  
             toolTipSettings.SetToolTip(BtnRestoreDB, "Restore a selected database backup.");
 
             // Populate font ComboBox
@@ -475,7 +474,7 @@ namespace Nippy_Notes
                 {
                     DatabaseHelper.RestoreDB(selectedBackupFile);
                     MessageBox.Show("Database restored successfully.", "Restore Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    DatabaseHelper.LoadBackupHistory(dataGridViewBackups);
+                    RefreshBackupHistory(); // Refresh backup history to reload the DataGridView
                 }
                 catch (Exception ex)
                 {
@@ -503,7 +502,15 @@ namespace Nippy_Notes
 
         private void RefreshBackupHistory()
         {
-            LoadBackupHistoryIntoGridView();
+            // Clear current rows
+            dataGridViewBackups.Rows.Clear();
+
+            // Load the backup history and repopulate the DataGridView
+            var backupRecords = BackupHistoryManager.LoadBackupHistory();
+            foreach (var record in backupRecords)
+            {
+                dataGridViewBackups.Rows.Add(record.BackupName, record.Location, record.FilePath, record.Date);
+            }
         }
 
         // Initializes the DataGridView for backups
@@ -708,6 +715,45 @@ namespace Nippy_Notes
             }
         }
 
+        private void BtnDeleteDatabase_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewBackups.SelectedRows.Count == 1)
+            {
+                var selectedRow = dataGridViewBackups.SelectedRows[0];
+                var filePath = selectedRow.Cells["FilePath"].Value?.ToString();
+                var backupName = selectedRow.Cells["BackupName"].Value?.ToString();
+                var location = selectedRow.Cells["Location"].Value?.ToString();
+                var date = selectedRow.Cells["Date"].Value?.ToString();
+
+                // Log selected row details for debugging
+                Console.WriteLine($"Selected Backup for Deletion: BackupName = {backupName}, Location = {location}, FilePath = {filePath}, Date = {date}");
+
+                try
+                {
+                    if (!string.IsNullOrEmpty(filePath))
+                    {
+                        // Delete the file and update the backup history
+                        BackupHistoryManager.DeleteBackup(filePath);
+                        // Reload the DataGridView to reflect the updated backup history
+                        RefreshBackupHistory();
+                        MessageBox.Show("Backup file deleted successfully.", "Delete Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        throw new Exception("The selected backup file path is not valid.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Delete Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a backup file to delete.", "No Backup Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
         //Moved to DatabaseHelper - currently got an issue
         private void SavePasswordAndWordToDatabase(string passwordHash, string memorableWord)
         {
@@ -776,7 +822,5 @@ namespace Nippy_Notes
                 MessageBox.Show("Security is not enabled.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
-
     }
 }

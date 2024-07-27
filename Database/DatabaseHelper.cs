@@ -909,6 +909,8 @@ namespace Nippy_Notes
             dataGridView1.Refresh();
         }
 
+
+
         public static void LoadNoteByNoteNumber(int noteNumber, Action<Note> setNoteDetails, Action<bool> clearForm, Action<string> logMessage, ref Guid currentNoteId)
         {
             logMessage($"Loading note with number: {noteNumber}");
@@ -2038,6 +2040,8 @@ namespace Nippy_Notes
             }
         }
 
+
+
         public static void PopulateProductComboBoxSearchForm(ComboBox comboBox)
         {
             comboBox.Items.Clear();
@@ -2061,6 +2065,37 @@ namespace Nippy_Notes
                 }
             }
         }
+
+        public static DataTable GetAllNotesSearchForm()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+                connection.Open();
+                string query = @"
+            SELECT Notes.NoteID, Notes.NoteNumber, Notes.AddedDate, Notes.Subject, Notes.Details, 
+                   Products.ProductName, Subcategories.SubcategoryName, 
+                   GROUP_CONCAT(DISTINCT Keywords.Keyword) AS Keywords,
+                   GROUP_CONCAT(DISTINCT Files.FileType) AS FileExtensions
+            FROM Notes
+            LEFT JOIN Products ON Notes.ProductID = Products.ProductID
+            LEFT JOIN Subcategories ON Notes.SubcategoryID = Subcategories.SubcategoryID
+            LEFT JOIN Keywords ON Notes.NoteID = Keywords.NoteID
+            LEFT JOIN Files ON Notes.NoteID = Files.NoteID
+            GROUP BY Notes.NoteID, Notes.NoteNumber, Notes.AddedDate, Products.ProductName, Subcategories.SubcategoryName, Notes.Subject, Notes.Details
+            ORDER BY Notes.NoteNumber ASC";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+                    DataTable notesTable = new DataTable();
+                    adapter.Fill(notesTable);
+                    return notesTable;
+                }
+            }
+        }
+
+
+
 
         public static void PopulateFileExtensionComboBoxSearchForm(ComboBox comboBox)
         {

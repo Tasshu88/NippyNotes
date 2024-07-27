@@ -56,6 +56,9 @@ namespace Nippy_Notes
             Logger.LogActivity("Open", $"Notes opened from SearchForm.");
 
             FormUtilities.EnsureFormIsVisible(this); // Ensure form is visible on load
+
+            // Set the property to remove the last empty row
+            dataGridViewShowAllNotes.AllowUserToAddRows = false;
         }
 
         private void CheckBoxAdvanced_CheckedChanged(object sender, EventArgs e)
@@ -173,7 +176,10 @@ namespace Nippy_Notes
             toolTipSearchForm.SetToolTip(CheckBoxDate, "Enable or disable date filtering.");
             toolTipSearchForm.SetToolTip(ComboBoxSearchFormKeyword, "Search by keyword.");
             toolTipSearchForm.SetToolTip(ComboBoxExtensionSearchSearchForm, "Search by file extension.");
+
+            btnShowAllNotesSearchForm.Enabled = true;
         }
+
 
         private void PopulateProductComboBox()
         {
@@ -232,9 +238,11 @@ namespace Nippy_Notes
 
         private void UpdateDataGridView()
         {
+            dataGridViewShowAllNotes.AllowUserToAddRows = false; // Set this before setting the DataSource
             DataTable notesTable = GetFilteredNotes();
             dataGridViewShowAllNotes.DataSource = notesTable;
             ConfigureDataGridViewColumns();
+            dataGridViewShowAllNotes.Refresh(); // Refresh the DataGridView
         }
 
         private void ConfigureDataGridViewColumns()
@@ -254,6 +262,7 @@ namespace Nippy_Notes
                 dataGridViewShowAllNotes.Columns["Details"].Visible = false;
             }
         }
+
 
         private void btnSearchNoteSearcForm_Click(object sender, EventArgs e)
         {
@@ -338,25 +347,31 @@ namespace Nippy_Notes
             DatabaseHelper.DeleteNoteAndRefreshSearchForm(noteId);
         }
 
-     /*   private bool NoteExists(string noteId)
-        {
-            using (SQLiteConnection connection = new SQLiteConnection("Data Source=NippyDB.db;Version=3;"))
-            {
-                connection.Open();
-                string query = "SELECT COUNT(*) FROM Notes WHERE NoteID = @NoteID";
-                using (SQLiteCommand command = new SQLiteCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@NoteID", noteId);
-                    int count = Convert.ToInt32(command.ExecuteScalar());
-                    return count > 0;
-                }
-            }
-        } */
+        /*   private bool NoteExists(string noteId)
+           {
+               using (SQLiteConnection connection = new SQLiteConnection("Data Source=NippyDB.db;Version=3;"))
+               {
+                   connection.Open();
+                   string query = "SELECT COUNT(*) FROM Notes WHERE NoteID = @NoteID";
+                   using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                   {
+                       command.Parameters.AddWithValue("@NoteID", noteId);
+                       int count = Convert.ToInt32(command.ExecuteScalar());
+                       return count > 0;
+                   }
+               }
+           } */
 
         private void btnShowAllNotesSearchForm_Click(object sender, EventArgs e)
         {
+            // Ensure expanding/collapsing functionality if needed
             expanding = !expanding;
             resizeTimer.Start();
+
+            // Fetch and display all notes
+            DataTable notesTable = DatabaseHelper.GetAllNotesSearchForm();
+            dataGridViewShowAllNotes.DataSource = notesTable;
+            ConfigureDataGridViewColumns();
         }
 
         private void btnOpenNotesSearchForm_Click(object sender, EventArgs e)
