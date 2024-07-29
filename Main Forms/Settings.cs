@@ -68,7 +68,7 @@ namespace Nippy_Notes
             FormUtilities.EnsureFormIsVisible(this);
 
             dataGridViewBackups.CellClick += DataGridViewBackups_CellClick;
-            BtnDelete.Click += BtnDelete_Click;
+            //BtnDelete.Click += BtnDelete_Click;
         }
 
         // Load event for setting form, initialize tooltips and other settings
