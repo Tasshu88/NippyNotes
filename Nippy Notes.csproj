@@ -258,6 +258,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmailHandler.cs" />
+    <Compile Include="Enrypter.cs" />
     <Compile Include="Main Forms\AttachmentPreviewForm.cs">
       <SubType>Form</SubType>
     </Compile>
