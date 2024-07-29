@@ -90,7 +90,7 @@
             this.BtnRestoreDB = new System.Windows.Forms.Button();
             this.BtnCloseSettings = new System.Windows.Forms.Button();
             this.BtnUploadDB = new System.Windows.Forms.Button();
-            this.BtnDelete = new System.Windows.Forms.Button();
+            this.BtnDeleteDatabase = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel6.SuspendLayout();
@@ -747,15 +747,14 @@
             this.BtnUploadDB.UseVisualStyleBackColor = true;
             this.BtnUploadDB.Click += new System.EventHandler(this.BtnUploadDB_Click);
             // 
-            // BtnDelete
+            // BtnDeleteDatabase
             // 
-            this.BtnDelete.Location = new System.Drawing.Point(493, 696);
-            this.BtnDelete.Name = "BtnDelete";
-            this.BtnDelete.Size = new System.Drawing.Size(111, 45);
-            this.BtnDelete.TabIndex = 32;
-            this.BtnDelete.Text = "Delete Database";
-            this.BtnDelete.UseVisualStyleBackColor = true;
-            this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
+            this.BtnDeleteDatabase.Location = new System.Drawing.Point(493, 695);
+            this.BtnDeleteDatabase.Name = "BtnDeleteDatabase";
+            this.BtnDeleteDatabase.Size = new System.Drawing.Size(111, 45);
+            this.BtnDeleteDatabase.TabIndex = 32;
+            this.BtnDeleteDatabase.Text = "Delete Database";
+            this.BtnDeleteDatabase.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -763,7 +762,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(246)))), ((int)(((byte)(195)))));
             this.ClientSize = new System.Drawing.Size(865, 837);
-            this.Controls.Add(this.BtnDelete);
+            this.Controls.Add(this.BtnDeleteDatabase);
             this.Controls.Add(this.BtnUploadDB);
             this.Controls.Add(this.BtnCloseSettings);
             this.Controls.Add(this.PanelGraph);
@@ -860,7 +859,6 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button BtnCloseSettings;
         private System.Windows.Forms.Button BtnUploadDB;
-        private System.Windows.Forms.Button BtnDelete;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox ComboBoxFontSetting;
         private System.Windows.Forms.ComboBox ComboBoxSizeSetting;
@@ -876,5 +874,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Button BtnDeleteDatabase;
     }
 }
