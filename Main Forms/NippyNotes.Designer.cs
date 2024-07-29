@@ -198,7 +198,6 @@
             // 
             // BtnEmailNote
             // 
-            this.BtnEmailNote.Enabled = false;
             this.BtnEmailNote.FlatAppearance.BorderSize = 0;
             this.BtnEmailNote.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(228)))), ((int)(((byte)(255)))));
             this.BtnEmailNote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

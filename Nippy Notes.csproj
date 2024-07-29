@@ -257,6 +257,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmailHandler.cs" />
     <Compile Include="Main Forms\AttachmentPreviewForm.cs">
       <SubType>Form</SubType>
     </Compile>

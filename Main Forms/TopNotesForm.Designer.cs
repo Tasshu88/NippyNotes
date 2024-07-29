@@ -75,6 +75,7 @@
             this.Controls.Add(this.btnFetchTopNotes);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "TopNotesForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Top Notes";
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);

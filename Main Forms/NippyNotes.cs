@@ -2929,9 +2929,6 @@ SettingID INTEGER PRIMARY KEY AUTOINCREMENT,
 
         private void BtnEmailNote_Click(object sender, EventArgs e)
         {
-            // Opens the current note in an email client as an attachment.
-            // Prepares and sends the note via email.
-
             // Check if a note is currently selected/opened
             if (currentNoteId == Guid.Empty || string.IsNullOrEmpty(TextBoxID.Text))
             {
@@ -2965,8 +2962,20 @@ SettingID INTEGER PRIMARY KEY AUTOINCREMENT,
             // Export the note to the XML file
             ExportNoteToXml(currentNote, tempFilePath, false); // Do not show the success message
 
-            // Open the default email client with the attachment
-
+            // Check if Outlook is installed
+            if (EmailHandler.IsOutlookInstalled())
+            {
+                EmailHandler.SendEmailWithAttachment(tempFilePath);
+            }
+            else
+            {
+                // Prompt the user to select an email client
+                string emailClientPath = EmailHandler.PromptForEmailClient();
+                if (!string.IsNullOrEmpty(emailClientPath))
+                {
+                    EmailHandler.SendEmailWithAttachment(tempFilePath, emailClientPath);
+                }
+            }
         }
 
         private void BtnDeleteFiles_Click(object sender, EventArgs e)
