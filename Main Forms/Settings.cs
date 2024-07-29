@@ -67,6 +67,9 @@ namespace Nippy_Notes
 
             // Ensure the form is vissible on the screen
             FormUtilities.EnsureFormIsVisible(this);
+
+            dataGridViewBackups.CellClick += DataGridViewBackups_CellClick;
+            BtnDelete.Click += BtnDelete_Click;
         }
 
         // Load event for setting form, initialize tooltips and other settings
@@ -503,7 +506,15 @@ namespace Nippy_Notes
 
         private void RefreshBackupHistory()
         {
-            LoadBackupHistoryIntoGridView();
+            // Clear current rows
+            dataGridViewBackups.Rows.Clear();
+
+            // Load the backup history and repopulate the DataGridView
+            var backupRecords = BackupHistoryManager.LoadBackupHistory();
+            foreach (var record in backupRecords)
+            {
+                dataGridViewBackups.Rows.Add(record.BackupName, record.Location, record.FilePath, record.Date);
+            }
         }
 
         // Initializes the DataGridView for backups
@@ -625,14 +636,12 @@ namespace Nippy_Notes
             {
                 var selectedRow = dataGridViewBackups.SelectedRows[0];
                 var filePath = selectedRow.Cells["FilePath"].Value?.ToString();
-                //it's deleting all rows and not the one I'm selecting
                 var backupName = selectedRow.Cells["BackupName"].Value?.ToString();
-                var location = selectedRow.Cells["location"].Value?.ToString();
-                var date = selectedRow.Cells["date"].Value?.ToString();
+                var location = selectedRow.Cells["Location"].Value?.ToString();
+                var date = selectedRow.Cells["Date"].Value?.ToString();
 
-                //debug if fails
-                Console.WriteLine($"Selected backupd for deletion: BackupName = {backupName}, Location = {location}, FilePath = {filePath}, Date = {date}");
-
+                // Log selected row details for debugging
+                Console.WriteLine($"Selected Backup for Deletion: BackupName = {backupName}, Location = {location}, FilePath = {filePath}, Date = {date}");
 
                 try
                 {
@@ -640,7 +649,8 @@ namespace Nippy_Notes
                     {
                         // Delete the file and update the backup history
                         BackupHistoryManager.DeleteBackup(filePath);
-                        dataGridViewBackups.Rows.Remove(selectedRow); // Remove the selected row from DataGridView
+                        // Reload the DataGridView to reflect the updated backup history
+                        RefreshBackupHistory();
                         MessageBox.Show("Backup file deleted successfully.", "Delete Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
@@ -658,6 +668,22 @@ namespace Nippy_Notes
                 MessageBox.Show("Please select a backup file to delete.", "No Backup Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        /*
+        private void RefreshBackupHistory()
+        {
+            //Clear current rows
+            dataGridViewBackups.Rows.Clear();
+
+            //Load backup history and re pop
+            var backupRecords = BackupHistoryManager.LoadBackupHistory();
+            foreach (var record in backupRecords)
+            {
+                dataGridViewBackups.Rows.Add(record.BackupName, record.Location, record.FilePath, record.Date);
+            }
+        }
+
+        */
 
         // Opens the feedback form
         private void BtnSettingsFormFeedback_Click(object sender, EventArgs e)
@@ -784,7 +810,5 @@ namespace Nippy_Notes
                 MessageBox.Show("Security is not enabled.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
-
     }
 }

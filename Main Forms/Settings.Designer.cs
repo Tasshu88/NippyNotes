@@ -711,7 +711,9 @@
             this.dataGridViewBackups.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewBackups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewBackups.Location = new System.Drawing.Point(328, 504);
+            this.dataGridViewBackups.MultiSelect = false;
             this.dataGridViewBackups.Name = "dataGridViewBackups";
+            this.dataGridViewBackups.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewBackups.Size = new System.Drawing.Size(507, 188);
             this.dataGridViewBackups.TabIndex = 29;
             // 

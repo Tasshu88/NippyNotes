@@ -19,7 +19,6 @@ public static class BackupHistoryManager
         File.WriteAllText(backupHistoryFilePath, json);
     }
 
-    // Load the backup history from the JSON file
     public static List<BackupRecord> LoadBackupHistory()
     {
         // Check if the backup history file exists
@@ -28,11 +27,19 @@ public static class BackupHistoryManager
             // If it doesn't exist, return an empty list
             return new List<BackupRecord>();
         }
+
         // Read the content of the backup history file
         var json = File.ReadAllText(backupHistoryFilePath);
         // Deserialize the JSON string back to a list of backup records
-        return JsonConvert.DeserializeObject<List<BackupRecord>>(json);
+        var backupRecords = JsonConvert.DeserializeObject<List<BackupRecord>>(json);
+
+        // Ensure each backup record has a unique file path
+        var uniqueBackupRecords = backupRecords.GroupBy(record => record.FilePath)
+                                               .Select(group => group.First())
+                                               .ToList();
+        return uniqueBackupRecords;
     }
+
 
     // Add a new backup record to the history
     public static void AddBackupRecord(BackupRecord backupRecord)
@@ -96,4 +103,5 @@ public static class BackupHistoryManager
             throw new Exception($"An error occurred while deleting the file: {ex.Message}");
         }
     }
+
 }
