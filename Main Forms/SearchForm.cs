@@ -11,12 +11,8 @@ namespace Nippy_Notes
 {
     public partial class SearchForm : Form
     {
-        private Timer resizeTimer;
-        private bool expanding = false;
-        private int targetWidth = 1100;
-        private int originalWidth = 493;
-        private int originalHeight = 505; // Default height
-        private int stepSize = 20;
+        private int expandedWidth = 1180;
+        private int expandedHeight = 591;
         private ToolTip toolTipSearchForm;
 
         private NippyNotes nippyNotesForm;
@@ -31,7 +27,7 @@ namespace Nippy_Notes
         {
             InitializeComponent();
             InitializeCustomComponents();
-            this.Size = new Size(originalWidth, originalHeight); // Set the default size of the form
+            this.Size = new Size(expandedWidth, expandedHeight);  // Set the form to the expanded size
 
             DateTimePickerFrom.ValueChanged += DateTimePickerFrom_ValueChanged;
             DateTimePickerTo.ValueChanged += DateTimePickerTo_ValueChanged;
@@ -59,6 +55,8 @@ namespace Nippy_Notes
 
             // Set the property to remove the last empty row
             dataGridViewShowAllNotes.AllowUserToAddRows = false;
+
+            TextBoxQuickSearch.TextChanged += TextBoxQuickSearch_TextChanged;
         }
 
         private void CheckBoxAdvanced_CheckedChanged(object sender, EventArgs e)
@@ -73,7 +71,6 @@ namespace Nippy_Notes
             UpdateDataGridView(); // Update DataGridView based on new filters
         }
 
-
         protected virtual void OnNoteSelected(EventArgs e)
         {
             NoteSelected?.Invoke(this, e);
@@ -81,55 +78,18 @@ namespace Nippy_Notes
 
         private void InitializeCustomComponents()
         {
-            // Initialize Timer
-            resizeTimer = new Timer();
-            resizeTimer.Interval = 10; // Interval in milliseconds
-            resizeTimer.Tick += ResizeTimer_Tick;
-
             // Initialize other components
         }
 
-        private void ResizeTimer_Tick(object sender, EventArgs e)
+        private void TextBoxQuickSearch_TextChanged(object sender, EventArgs e)
         {
-            if (expanding)
-            {
-                // Check if expanding will go off-screen
-                if (this.Location.X + this.Width + stepSize > Screen.PrimaryScreen.WorkingArea.Width)
-                {
-                    this.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width - this.Width - stepSize, this.Location.Y);
-                }
-
-                if (this.Width < targetWidth)
-                {
-                    this.Width += stepSize; // Adjust step size for smoothness
-                }
-                else
-                {
-                    resizeTimer.Stop();
-                    this.Width = targetWidth;
-                    FormUtilities.EnsureFormIsVisible(this); // Ensure form is visible after expanding
-                }
-            }
-            else
-            {
-                if (this.Width > originalWidth)
-                {
-                    this.Width -= stepSize; // Adjust step size for smoothness
-                }
-                else
-                {
-                    resizeTimer.Stop();
-                    this.Width = originalWidth;
-                    FormUtilities.EnsureFormIsVisible(this); // Ensure form is visible after collapsing
-                }
-            }
+            UpdateDataGridView();
         }
 
         private void PopulateKeywordsComboBoxSearchForm()
         {
             DatabaseHelper.PopulateKeywordsComboBoxSearchForm(ComboBoxSearchFormKeyword);
         }
-
 
         private DataTable GetFilteredNotes()
         {
@@ -141,9 +101,17 @@ namespace Nippy_Notes
             bool filterByKeyword = selectedKeyword != null && selectedKeyword != "All";
             bool filterByDate = CheckBoxDate.Checked;
 
-            return DatabaseHelper.GetFilteredNotesSearchForm(selectedProduct, selectedSubcategory, selectedExtension, selectedKeyword, filterByExtension, filterByKeyword, filterByDate, DateTimePickerFrom.Value.Date, DateTimePickerTo.Value.Date);
-        }
+            string quickSearchText = TextBoxQuickSearch.Text;
+            if (!string.IsNullOrEmpty(quickSearchText))
+            {
+                return DatabaseHelper.GetQuickSearchNotes(quickSearchText);
+            }
 
+            return DatabaseHelper.GetFilteredNotesSearchForm(
+                selectedProduct, selectedSubcategory, selectedExtension, selectedKeyword,
+                filterByExtension, filterByKeyword, filterByDate, DateTimePickerFrom.Value.Date, DateTimePickerTo.Value.Date
+            );
+        }
 
         private void DateTimePickerFrom_ValueChanged(object sender, EventArgs e)
         {
@@ -155,10 +123,8 @@ namespace Nippy_Notes
             UpdateDataGridView();
         }
 
-
         private void SearchForm_Load(object sender, EventArgs e)
         {
-            this.Size = new Size(originalWidth, originalHeight); // Ensure form size is set on load
             PopulateProductComboBox();
             PopulateFileExtensionComboBox();
             PopulateKeywordsComboBoxSearchForm();
@@ -178,8 +144,12 @@ namespace Nippy_Notes
             toolTipSearchForm.SetToolTip(ComboBoxExtensionSearchSearchForm, "Search by file extension.");
 
             btnShowAllNotesSearchForm.Enabled = true;
-        }
 
+            // Fetch and display all notes on load
+            DataTable notesTable = DatabaseHelper.GetAllNotesSearchForm();
+            dataGridViewShowAllNotes.DataSource = notesTable;
+            ConfigureDataGridViewColumns();
+        }
 
         private void PopulateProductComboBox()
         {
@@ -263,7 +233,6 @@ namespace Nippy_Notes
             }
         }
 
-
         private void btnSearchNoteSearcForm_Click(object sender, EventArgs e)
         {
             DataTable notesTable = GetFilteredNotes();
@@ -304,74 +273,39 @@ namespace Nippy_Notes
             this.Close();
         }
 
-
-        //Lost reference?!
         private List<Note> FetchNotes(string product)
         {
             return DatabaseHelper.FetchNotesSearchForm(product);
         }
 
-        //Moved to DatabaseHelper
         private string GetProductIdByName(string productName)
         {
             return DatabaseHelper.GetProductIdByNameSearchForm(productName);
         }
 
-        //Moved to DatabaseHelper
         private string GetSubcategoryIdByName(string subcategoryName, string productId)
         {
             return DatabaseHelper.GetSubcategoryIdByNameSearchForm(subcategoryName, productId);
         }
 
-        //Moved to DatabaseHelper
         private bool IsProductEmpty(string productId)
         {
             return DatabaseHelper.IsProductEmptySearchForm(productId);
         }
 
-        //Moved to DatabaseHelper
         private string GetProductNameById(string productId)
         {
             return DatabaseHelper.GetProductNameByIdSearchForm(productId);
         }
 
-        //Moved to DatabaseHelper
         private void DeleteProduct(string productId)
         {
             DatabaseHelper.DeleteProductSearchForm(productId);
         }
 
-        //Moved to DatabaseHelper
         private void DeleteNoteAndRefresh(string noteId)
         {
             DatabaseHelper.DeleteNoteAndRefreshSearchForm(noteId);
-        }
-
-        /*   private bool NoteExists(string noteId)
-           {
-               using (SQLiteConnection connection = new SQLiteConnection("Data Source=NippyDB.db;Version=3;"))
-               {
-                   connection.Open();
-                   string query = "SELECT COUNT(*) FROM Notes WHERE NoteID = @NoteID";
-                   using (SQLiteCommand command = new SQLiteCommand(query, connection))
-                   {
-                       command.Parameters.AddWithValue("@NoteID", noteId);
-                       int count = Convert.ToInt32(command.ExecuteScalar());
-                       return count > 0;
-                   }
-               }
-           } */
-
-        private void btnShowAllNotesSearchForm_Click(object sender, EventArgs e)
-        {
-            // Ensure expanding/collapsing functionality if needed
-            expanding = !expanding;
-            resizeTimer.Start();
-
-            // Fetch and display all notes
-            DataTable notesTable = DatabaseHelper.GetAllNotesSearchForm();
-            dataGridViewShowAllNotes.DataSource = notesTable;
-            ConfigureDataGridViewColumns();
         }
 
         private void btnOpenNotesSearchForm_Click(object sender, EventArgs e)
@@ -386,7 +320,6 @@ namespace Nippy_Notes
                         row.Cells["NoteNumber"].Value == null ||
                         row.Cells["AddedDate"].Value == null ||
                         row.Cells["Subject"].Value == null ||
-                        row.Cells["Details"].Value == null || // Ensure Details is included
                         row.Cells["ProductName"].Value == null ||
                         row.Cells["SubcategoryName"].Value == null)
                     {
@@ -432,7 +365,6 @@ namespace Nippy_Notes
             this.Close();
         }
 
-
         public Note GetSelectedNote()
         {
             if (dataGridViewShowAllNotes.SelectedRows.Count > 0)
@@ -444,7 +376,7 @@ namespace Nippy_Notes
                     NoteNumber = Convert.ToInt32(row.Cells["NoteNumber"].Value),
                     AddedDate = Convert.ToDateTime(row.Cells["AddedDate"].Value),
                     Subject = row.Cells["Subject"].Value.ToString(),
-                    Details = row.Cells["Details"].Value.ToString(),
+                    Details = row.Cells["Details"].ToString(),
                     ProductID = GetProductIdByName(row.Cells["ProductName"].Value.ToString()),
                     SubcategoryID = GetSubcategoryIdByName(row.Cells["SubcategoryName"].Value.ToString(), GetProductIdByName(row.Cells["ProductName"].Value.ToString()))
                 };
@@ -474,7 +406,7 @@ namespace Nippy_Notes
                     NoteNumber = Convert.ToInt32(row.Cells["NoteNumber"].Value),
                     AddedDate = Convert.ToDateTime(row.Cells["AddedDate"].Value),
                     Subject = row.Cells["Subject"].Value.ToString(),
-                    Details = row.Cells["Details"].Value.ToString(),
+                    Details = row.Cells["Details"].ToString(),
                     ProductID = GetProductIdByName(row.Cells["ProductName"].Value.ToString()),
                     SubcategoryID = GetSubcategoryIdByName(row.Cells["SubcategoryName"].Value.ToString(), GetProductIdByName(row.Cells["ProductName"].Value.ToString()))
                 };

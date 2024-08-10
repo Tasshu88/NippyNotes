@@ -198,7 +198,12 @@ namespace Nippy_Notes
 
         // Thi is the Constructor to initialize the form and setup various components
         public NippyNotes()
+
         {
+
+
+
+
             // Initialize the form components
             InitializeComponent();
 

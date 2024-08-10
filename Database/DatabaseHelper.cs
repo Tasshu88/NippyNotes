@@ -12,6 +12,7 @@ using Nippy_Notes;
 using System.Net.Mail;
 using System.Net;
 using Nippy_Notes.Security;
+using System.Text;
 
 namespace Nippy_Notes
 {
@@ -1936,24 +1937,26 @@ namespace Nippy_Notes
             }
         }
 
+
+
         public static DataTable GetFilteredNotesSearchForm(string selectedProduct, string selectedSubcategory, string selectedExtension, string selectedKeyword, bool filterByExtension, bool filterByKeyword, bool filterByDate, DateTime dateFrom, DateTime dateTo)
         {
             string query = @"
-                SELECT 
-                    n.NoteID,
-                    n.NoteNumber, 
-                    n.AddedDate, 
-                    p.ProductName, 
-                    s.SubcategoryName, 
-                    n.Subject, 
-                    n.Details, 
-                    GROUP_CONCAT(DISTINCT k.Keyword) AS Keywords,
-                    GROUP_CONCAT(DISTINCT f.FileType) AS FileExtensions
-                FROM Notes n
-                LEFT JOIN Products p ON n.ProductID = p.ProductID
-                LEFT JOIN Subcategories s ON n.SubcategoryID = s.SubcategoryID
-                LEFT JOIN Keywords k ON n.NoteID = k.NoteID
-                LEFT JOIN Files f ON n.NoteID = f.NoteID";
+        SELECT 
+            n.NoteID,
+            n.NoteNumber, 
+            n.AddedDate, 
+            p.ProductName, 
+            s.SubcategoryName, 
+            n.Subject, 
+            n.Details, 
+            GROUP_CONCAT(DISTINCT k.Keyword) AS Keywords,
+            GROUP_CONCAT(DISTINCT f.FileType) AS FileExtensions
+        FROM Notes n
+        LEFT JOIN Products p ON n.ProductID = p.ProductID
+        LEFT JOIN Subcategories s ON n.SubcategoryID = s.SubcategoryID
+        LEFT JOIN Keywords k ON n.NoteID = k.NoteID
+        LEFT JOIN Files f ON n.NoteID = f.NoteID";
 
             List<string> conditions = new List<string>();
             List<SQLiteParameter> parameters = new List<SQLiteParameter>();
@@ -1978,8 +1981,8 @@ namespace Nippy_Notes
 
             if (filterByKeyword)
             {
-                conditions.Add("EXISTS (SELECT 1 FROM Keywords k2 WHERE k2.NoteID = n.NoteID AND k2.Keyword = @Keyword)");
-                parameters.Add(new SQLiteParameter("@Keyword", selectedKeyword));
+                conditions.Add("EXISTS (SELECT 1 FROM Keywords k2 WHERE k2.NoteID = n.NoteID AND k2.Keyword LIKE @Keyword)");
+                parameters.Add(new SQLiteParameter("@Keyword", "%" + selectedKeyword + "%"));
             }
 
             if (filterByDate)
@@ -2039,6 +2042,14 @@ namespace Nippy_Notes
                 }
             }
         }
+
+
+
+
+
+
+
+
 
 
 
@@ -2353,6 +2364,115 @@ namespace Nippy_Notes
                 }
             }
         }
+
+        public static DataTable GetQuickSearchNotes(string searchText)
+        {
+            string query = @"
+        SELECT 
+            n.NoteID,
+            n.NoteNumber, 
+            n.AddedDate, 
+            p.ProductName, 
+            s.SubcategoryName, 
+            n.Subject, 
+            n.Details, 
+            GROUP_CONCAT(DISTINCT k.Keyword) AS Keywords,
+            GROUP_CONCAT(DISTINCT f.FileType) AS FileExtensions
+        FROM Notes n
+        LEFT JOIN Products p ON n.ProductID = p.ProductID
+        LEFT JOIN Subcategories s ON n.SubcategoryID = s.SubcategoryID
+        LEFT JOIN Keywords k ON n.NoteID = k.NoteID
+        LEFT JOIN Files f ON n.NoteID = f.NoteID
+        WHERE n.Details LIKE @searchText
+        GROUP BY n.NoteID, n.NoteNumber, n.AddedDate, p.ProductName, s.SubcategoryName, n.Subject, n.Details
+        ORDER BY n.NoteNumber ASC";
+
+            using (SQLiteConnection conn = new SQLiteConnection(ConnectionString))
+            {
+                conn.Open();
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@searchText", "%" + searchText + "%"));
+
+                    using (SQLiteDataReader reader = cmd.ExecuteReader())
+                    {
+                        DataTable notesTable = new DataTable();
+                        notesTable.Columns.Add("NoteID", typeof(string));
+                        notesTable.Columns.Add("NoteNumber", typeof(int));
+                        notesTable.Columns.Add("AddedDate", typeof(DateTime));
+                        notesTable.Columns.Add("ProductName", typeof(string));
+                        notesTable.Columns.Add("SubcategoryName", typeof(string));
+                        notesTable.Columns.Add("Subject", typeof(string));
+                        notesTable.Columns.Add("Details", typeof(string)); // Add Details column
+                        notesTable.Columns.Add("Keywords", typeof(string));
+                        notesTable.Columns.Add("FileExtensions", typeof(string));
+
+                        while (reader.Read())
+                        {
+                            DataRow row = notesTable.NewRow();
+                            row["NoteID"] = reader["NoteID"] != DBNull.Value ? reader["NoteID"] : string.Empty;
+                            row["NoteNumber"] = reader["NoteNumber"] != DBNull.Value ? Convert.ToInt32(reader["NoteNumber"]) : 0;
+                            row["AddedDate"] = reader["AddedDate"] != DBNull.Value ? Convert.ToDateTime(reader["AddedDate"]) : DateTime.MinValue;
+                            row["ProductName"] = reader["ProductName"] != DBNull.Value ? reader["ProductName"].ToString() : string.Empty;
+                            row["SubcategoryName"] = reader["SubcategoryName"] != DBNull.Value ? reader["SubcategoryName"].ToString() : string.Empty;
+                            row["Subject"] = reader["Subject"] != DBNull.Value ? reader["Subject"].ToString() : string.Empty;
+                            row["Details"] = reader["Details"] != DBNull.Value ? reader["Details"].ToString() : string.Empty; // Populate Details column
+                            row["Keywords"] = reader["Keywords"] != DBNull.Value ? reader["Keywords"].ToString() : string.Empty;
+                            row["FileExtensions"] = reader["FileExtensions"] != DBNull.Value ? reader["FileExtensions"].ToString() : string.Empty;
+                            notesTable.Rows.Add(row);
+                        }
+
+                        return notesTable;
+                    }
+                }
+            }
+        }
+
+
+        private static string EscapeLikeValue(string value)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (char c in value)
+            {
+                switch (c)
+                {
+                    case '%':
+                    case '_':
+                    case '[':
+                    case ']':
+                    case '\\':
+                    case '(':
+                    case ')':
+                    case '*':
+                    case '+':
+                    case '?':
+                    case '^':
+                    case '$':
+                    case '{':
+                    case '}':
+                    case '|':
+                    case '.':
+                        sb.Append('\\');
+                        sb.Append(c);
+                        break;
+                    default:
+                        sb.Append(c);
+                        break;
+                }
+            }
+            return sb.ToString();
+        }
+
+
+
+
+
+
+
+
+
+
+
 
         #endregion SearchForm
 

@@ -43,6 +43,13 @@
             this.LblKeyword = new System.Windows.Forms.Label();
             this.ComboBoxSearchFormKeyword = new System.Windows.Forms.ComboBox();
             this.MainPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.TextBoxQuickSearch = new System.Windows.Forms.TextBox();
+            this.LowerPanel = new System.Windows.Forms.Panel();
+            this.LblTo = new System.Windows.Forms.Label();
+            this.LblFrom = new System.Windows.Forms.Label();
+            this.DateTimePickerTo = new System.Windows.Forms.DateTimePicker();
+            this.DateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -55,13 +62,9 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MidPanel = new System.Windows.Forms.Panel();
             this.SearchNotesLogoSearchForm = new System.Windows.Forms.PictureBox();
-            this.LowerPanel = new System.Windows.Forms.Panel();
-            this.LblTo = new System.Windows.Forms.Label();
-            this.LblFrom = new System.Windows.Forms.Label();
-            this.DateTimePickerTo = new System.Windows.Forms.DateTimePicker();
-            this.DateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShowAllNotes)).BeginInit();
             this.MainPanel.SuspendLayout();
+            this.LowerPanel.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -69,13 +72,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.MidPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SearchNotesLogoSearchForm)).BeginInit();
-            this.LowerPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // ComboBoxProductSearchSearchForm
             // 
             this.ComboBoxProductSearchSearchForm.FormattingEnabled = true;
-            this.ComboBoxProductSearchSearchForm.Location = new System.Drawing.Point(155, 34);
+            this.ComboBoxProductSearchSearchForm.Location = new System.Drawing.Point(155, 116);
             this.ComboBoxProductSearchSearchForm.Name = "ComboBoxProductSearchSearchForm";
             this.ComboBoxProductSearchSearchForm.Size = new System.Drawing.Size(121, 21);
             this.ComboBoxProductSearchSearchForm.TabIndex = 8;
@@ -85,7 +87,7 @@
             // 
             this.LblProductSearch.AutoSize = true;
             this.LblProductSearch.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblProductSearch.Location = new System.Drawing.Point(166, 13);
+            this.LblProductSearch.Location = new System.Drawing.Point(166, 95);
             this.LblProductSearch.Name = "LblProductSearch";
             this.LblProductSearch.Size = new System.Drawing.Size(104, 18);
             this.LblProductSearch.TabIndex = 9;
@@ -94,7 +96,7 @@
             // btnSearchNoteSearcForm
             // 
             this.btnSearchNoteSearcForm.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearchNoteSearcForm.Location = new System.Drawing.Point(65, 390);
+            this.btnSearchNoteSearcForm.Location = new System.Drawing.Point(20, 483);
             this.btnSearchNoteSearcForm.Name = "btnSearchNoteSearcForm";
             this.btnSearchNoteSearcForm.Size = new System.Drawing.Size(106, 64);
             this.btnSearchNoteSearcForm.TabIndex = 15;
@@ -106,7 +108,7 @@
             // 
             this.LblSubcategory.AutoSize = true;
             this.LblSubcategory.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblSubcategory.Location = new System.Drawing.Point(299, 13);
+            this.LblSubcategory.Location = new System.Drawing.Point(299, 95);
             this.LblSubcategory.Name = "LblSubcategory";
             this.LblSubcategory.Size = new System.Drawing.Size(132, 18);
             this.LblSubcategory.TabIndex = 17;
@@ -115,7 +117,7 @@
             // ComboBoxSubcategorySearchSearchForm
             // 
             this.ComboBoxSubcategorySearchSearchForm.FormattingEnabled = true;
-            this.ComboBoxSubcategorySearchSearchForm.Location = new System.Drawing.Point(302, 34);
+            this.ComboBoxSubcategorySearchSearchForm.Location = new System.Drawing.Point(302, 116);
             this.ComboBoxSubcategorySearchSearchForm.Name = "ComboBoxSubcategorySearchSearchForm";
             this.ComboBoxSubcategorySearchSearchForm.Size = new System.Drawing.Size(121, 21);
             this.ComboBoxSubcategorySearchSearchForm.TabIndex = 16;
@@ -123,18 +125,17 @@
             // btnShowAllNotesSearchForm
             // 
             this.btnShowAllNotesSearchForm.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnShowAllNotesSearchForm.Location = new System.Drawing.Point(298, 390);
+            this.btnShowAllNotesSearchForm.Location = new System.Drawing.Point(356, 483);
             this.btnShowAllNotesSearchForm.Name = "btnShowAllNotesSearchForm";
             this.btnShowAllNotesSearchForm.Size = new System.Drawing.Size(106, 64);
             this.btnShowAllNotesSearchForm.TabIndex = 19;
             this.btnShowAllNotesSearchForm.Text = "Show All Notes";
             this.btnShowAllNotesSearchForm.UseVisualStyleBackColor = true;
-            this.btnShowAllNotesSearchForm.Click += new System.EventHandler(this.btnShowAllNotesSearchForm_Click);
             // 
             // btnDeleteSearcForm
             // 
             this.btnDeleteSearcForm.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteSearcForm.Location = new System.Drawing.Point(494, 400);
+            this.btnDeleteSearcForm.Location = new System.Drawing.Point(485, 493);
             this.btnDeleteSearcForm.Name = "btnDeleteSearcForm";
             this.btnDeleteSearcForm.Size = new System.Drawing.Size(92, 54);
             this.btnDeleteSearcForm.TabIndex = 21;
@@ -145,7 +146,7 @@
             // btnOpenNotesSearchForm
             // 
             this.btnOpenNotesSearchForm.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenNotesSearchForm.Location = new System.Drawing.Point(980, 400);
+            this.btnOpenNotesSearchForm.Location = new System.Drawing.Point(1054, 488);
             this.btnOpenNotesSearchForm.Name = "btnOpenNotesSearchForm";
             this.btnOpenNotesSearchForm.Size = new System.Drawing.Size(92, 54);
             this.btnOpenNotesSearchForm.TabIndex = 22;
@@ -175,11 +176,11 @@
             // 
             this.dataGridViewShowAllNotes.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewShowAllNotes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewShowAllNotes.Location = new System.Drawing.Point(499, 21);
+            this.dataGridViewShowAllNotes.Location = new System.Drawing.Point(503, 89);
             this.dataGridViewShowAllNotes.Name = "dataGridViewShowAllNotes";
             this.dataGridViewShowAllNotes.ReadOnly = true;
             this.dataGridViewShowAllNotes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewShowAllNotes.Size = new System.Drawing.Size(573, 368);
+            this.dataGridViewShowAllNotes.Size = new System.Drawing.Size(643, 368);
             this.dataGridViewShowAllNotes.TabIndex = 23;
             // 
             // LblKeyword
@@ -202,18 +203,85 @@
             // 
             // MainPanel
             // 
-            this.MainPanel.BackColor = System.Drawing.SystemColors.Menu;
+            this.MainPanel.BackColor = System.Drawing.SystemColors.MenuBar;
             this.MainPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MainPanel.Controls.Add(this.label1);
+            this.MainPanel.Controls.Add(this.TextBoxQuickSearch);
+            this.MainPanel.Controls.Add(this.LowerPanel);
             this.MainPanel.Controls.Add(this.panel2);
             this.MainPanel.Controls.Add(this.MidPanel);
             this.MainPanel.Controls.Add(this.ComboBoxProductSearchSearchForm);
             this.MainPanel.Controls.Add(this.LblProductSearch);
             this.MainPanel.Controls.Add(this.LblSubcategory);
             this.MainPanel.Controls.Add(this.ComboBoxSubcategorySearchSearchForm);
-            this.MainPanel.Location = new System.Drawing.Point(12, 148);
+            this.MainPanel.Location = new System.Drawing.Point(16, 155);
             this.MainPanel.Name = "MainPanel";
-            this.MainPanel.Size = new System.Drawing.Size(449, 227);
+            this.MainPanel.Size = new System.Drawing.Size(449, 319);
             this.MainPanel.TabIndex = 27;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(236, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(75, 13);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "Quick Search:";
+            // 
+            // TextBoxQuickSearch
+            // 
+            this.TextBoxQuickSearch.Location = new System.Drawing.Point(200, 46);
+            this.TextBoxQuickSearch.Name = "TextBoxQuickSearch";
+            this.TextBoxQuickSearch.Size = new System.Drawing.Size(148, 20);
+            this.TextBoxQuickSearch.TabIndex = 31;
+            // 
+            // LowerPanel
+            // 
+            this.LowerPanel.BackColor = System.Drawing.SystemColors.Menu;
+            this.LowerPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LowerPanel.Controls.Add(this.LblTo);
+            this.LowerPanel.Controls.Add(this.LblFrom);
+            this.LowerPanel.Controls.Add(this.DateTimePickerTo);
+            this.LowerPanel.Controls.Add(this.DateTimePickerFrom);
+            this.LowerPanel.Location = new System.Drawing.Point(133, 237);
+            this.LowerPanel.Name = "LowerPanel";
+            this.LowerPanel.Size = new System.Drawing.Size(315, 81);
+            this.LowerPanel.TabIndex = 28;
+            this.LowerPanel.Visible = false;
+            // 
+            // LblTo
+            // 
+            this.LblTo.AutoSize = true;
+            this.LblTo.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblTo.Location = new System.Drawing.Point(212, 12);
+            this.LblTo.Name = "LblTo";
+            this.LblTo.Size = new System.Drawing.Size(26, 18);
+            this.LblTo.TabIndex = 27;
+            this.LblTo.Text = "To:";
+            // 
+            // LblFrom
+            // 
+            this.LblFrom.AutoSize = true;
+            this.LblFrom.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblFrom.Location = new System.Drawing.Point(63, 12);
+            this.LblFrom.Name = "LblFrom";
+            this.LblFrom.Size = new System.Drawing.Size(44, 18);
+            this.LblFrom.TabIndex = 26;
+            this.LblFrom.Text = "From:";
+            // 
+            // DateTimePickerTo
+            // 
+            this.DateTimePickerTo.Location = new System.Drawing.Point(167, 33);
+            this.DateTimePickerTo.Name = "DateTimePickerTo";
+            this.DateTimePickerTo.Size = new System.Drawing.Size(131, 20);
+            this.DateTimePickerTo.TabIndex = 1;
+            // 
+            // DateTimePickerFrom
+            // 
+            this.DateTimePickerFrom.Location = new System.Drawing.Point(12, 33);
+            this.DateTimePickerFrom.Name = "DateTimePickerFrom";
+            this.DateTimePickerFrom.Size = new System.Drawing.Size(131, 20);
+            this.DateTimePickerFrom.TabIndex = 0;
             // 
             // panel2
             // 
@@ -223,7 +291,7 @@
             this.panel2.Controls.Add(this.PanelSearch);
             this.panel2.Location = new System.Drawing.Point(-1, -1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(135, 227);
+            this.panel2.Size = new System.Drawing.Size(135, 319);
             this.panel2.TabIndex = 18;
             // 
             // panel5
@@ -315,15 +383,15 @@
             // 
             // MidPanel
             // 
-            this.MidPanel.BackColor = System.Drawing.SystemColors.Window;
+            this.MidPanel.BackColor = System.Drawing.SystemColors.Menu;
             this.MidPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.MidPanel.Controls.Add(this.ComboBoxSearchFormKeyword);
             this.MidPanel.Controls.Add(this.LblKeyword);
             this.MidPanel.Controls.Add(this.ComboBoxExtensionSearchSearchForm);
             this.MidPanel.Controls.Add(this.LblSelectExtension);
-            this.MidPanel.Location = new System.Drawing.Point(132, 72);
+            this.MidPanel.Location = new System.Drawing.Point(133, 156);
             this.MidPanel.Name = "MidPanel";
-            this.MidPanel.Size = new System.Drawing.Size(316, 154);
+            this.MidPanel.Size = new System.Drawing.Size(316, 82);
             this.MidPanel.TabIndex = 30;
             this.MidPanel.Visible = false;
             // 
@@ -336,60 +404,12 @@
             this.SearchNotesLogoSearchForm.TabIndex = 0;
             this.SearchNotesLogoSearchForm.TabStop = false;
             // 
-            // LowerPanel
-            // 
-            this.LowerPanel.BackColor = System.Drawing.SystemColors.Window;
-            this.LowerPanel.Controls.Add(this.LblTo);
-            this.LowerPanel.Controls.Add(this.LblFrom);
-            this.LowerPanel.Controls.Add(this.DateTimePickerTo);
-            this.LowerPanel.Controls.Add(this.DateTimePickerFrom);
-            this.LowerPanel.Location = new System.Drawing.Point(148, 292);
-            this.LowerPanel.Name = "LowerPanel";
-            this.LowerPanel.Size = new System.Drawing.Size(310, 81);
-            this.LowerPanel.TabIndex = 28;
-            this.LowerPanel.Visible = false;
-            // 
-            // LblTo
-            // 
-            this.LblTo.AutoSize = true;
-            this.LblTo.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblTo.Location = new System.Drawing.Point(212, 12);
-            this.LblTo.Name = "LblTo";
-            this.LblTo.Size = new System.Drawing.Size(26, 18);
-            this.LblTo.TabIndex = 27;
-            this.LblTo.Text = "To:";
-            // 
-            // LblFrom
-            // 
-            this.LblFrom.AutoSize = true;
-            this.LblFrom.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblFrom.Location = new System.Drawing.Point(63, 12);
-            this.LblFrom.Name = "LblFrom";
-            this.LblFrom.Size = new System.Drawing.Size(44, 18);
-            this.LblFrom.TabIndex = 26;
-            this.LblFrom.Text = "From:";
-            // 
-            // DateTimePickerTo
-            // 
-            this.DateTimePickerTo.Location = new System.Drawing.Point(167, 33);
-            this.DateTimePickerTo.Name = "DateTimePickerTo";
-            this.DateTimePickerTo.Size = new System.Drawing.Size(131, 20);
-            this.DateTimePickerTo.TabIndex = 1;
-            // 
-            // DateTimePickerFrom
-            // 
-            this.DateTimePickerFrom.Location = new System.Drawing.Point(12, 33);
-            this.DateTimePickerFrom.Name = "DateTimePickerFrom";
-            this.DateTimePickerFrom.Size = new System.Drawing.Size(131, 20);
-            this.DateTimePickerFrom.TabIndex = 0;
-            // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(200)))), ((int)(((byte)(240)))));
-            this.ClientSize = new System.Drawing.Size(1084, 466);
-            this.Controls.Add(this.LowerPanel);
+            this.ClientSize = new System.Drawing.Size(1157, 554);
             this.Controls.Add(this.MainPanel);
             this.Controls.Add(this.dataGridViewShowAllNotes);
             this.Controls.Add(this.btnOpenNotesSearchForm);
@@ -407,6 +427,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShowAllNotes)).EndInit();
             this.MainPanel.ResumeLayout(false);
             this.MainPanel.PerformLayout();
+            this.LowerPanel.ResumeLayout(false);
+            this.LowerPanel.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
@@ -418,8 +440,6 @@
             this.MidPanel.ResumeLayout(false);
             this.MidPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SearchNotesLogoSearchForm)).EndInit();
-            this.LowerPanel.ResumeLayout(false);
-            this.LowerPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -457,5 +477,7 @@
         private System.Windows.Forms.DateTimePicker DateTimePickerFrom;
         private System.Windows.Forms.Label LblTo;
         private System.Windows.Forms.Label LblFrom;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox TextBoxQuickSearch;
     }
 }
