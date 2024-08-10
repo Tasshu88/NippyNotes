@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchForm));
             this.ComboBoxProductSearchSearchForm = new System.Windows.Forms.ComboBox();
             this.LblProductSearch = new System.Windows.Forms.Label();
@@ -62,6 +63,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MidPanel = new System.Windows.Forms.Panel();
             this.SearchNotesLogoSearchForm = new System.Windows.Forms.PictureBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShowAllNotes)).BeginInit();
             this.MainPanel.SuspendLayout();
             this.LowerPanel.SuspendLayout();
@@ -479,5 +481,6 @@
         private System.Windows.Forms.Label LblFrom;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox TextBoxQuickSearch;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

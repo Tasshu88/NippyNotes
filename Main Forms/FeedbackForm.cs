@@ -139,22 +139,14 @@ namespace Nippy_Notes
             this.Close();
         }
 
-        // I don't want this here really.. feels insecure
-
         private void SendFeedbackEmail(string feedback)
         {
             string smtpHost = "smtp-mail.outlook.com";
             int smtpPort = 587;
-            string smtpUsername = Environment.GetEnvironmentVariable("SMTP_USERNAME");
-            string smtpPassword = Environment.GetEnvironmentVariable("SMTP_PASSWORD");
-            string fromEmail = Environment.GetEnvironmentVariable("SMTP_FROM_EMAIL");
-            string toEmail = Environment.GetEnvironmentVariable("SMTP_TO_EMAIL");
-
-            if (string.IsNullOrEmpty(smtpUsername) || string.IsNullOrEmpty(smtpPassword) || string.IsNullOrEmpty(fromEmail) || string.IsNullOrEmpty(toEmail))
-            {
-                MessageBox.Show("SMTP settings are not configured properly. Please check environment variables.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            string smtpUsername = "Daniel.daley88@outlook.com";
+            string smtpPassword = "Anibase57";
+            string fromEmail = "Daniel.daley88@outlook.com";
+            string toEmail = "Daniel.daley88@outlook.com";
 
             MailMessage mail = new MailMessage
             {

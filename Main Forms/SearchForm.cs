@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using static Nippy_Notes.NippyNotes;
@@ -21,13 +22,23 @@ namespace Nippy_Notes
         public string SelectedSubcategory { get; set; }
         public int NotesCount { get; set; } = 0;
 
+        private ToolTip toolTipSearchFormResult;
+
         public event EventHandler NoteSelected;
+
+
 
         public SearchForm(NippyNotes nippyNotes)
         {
             InitializeComponent();
             InitializeCustomComponents();
             this.Size = new Size(expandedWidth, expandedHeight);  // Set the form to the expanded size
+
+            toolTipSearchFormResult = new ToolTip(); // Initialize ToolTip control
+            toolTipSearchFormResult.AutoPopDelay = 5000;
+            toolTipSearchFormResult.InitialDelay = 1000;
+            toolTipSearchFormResult.ReshowDelay = 500;
+            toolTipSearchFormResult.ShowAlways = true;
 
             DateTimePickerFrom.ValueChanged += DateTimePickerFrom_ValueChanged;
             DateTimePickerTo.ValueChanged += DateTimePickerTo_ValueChanged;
@@ -59,6 +70,7 @@ namespace Nippy_Notes
             TextBoxQuickSearch.TextChanged += TextBoxQuickSearch_TextChanged;
         }
 
+
         private void CheckBoxAdvanced_CheckedChanged(object sender, EventArgs e)
         {
             MidPanel.Visible = CheckBoxAdvanced.Checked;
@@ -84,6 +96,48 @@ namespace Nippy_Notes
         private void TextBoxQuickSearch_TextChanged(object sender, EventArgs e)
         {
             UpdateDataGridView();
+
+            if (dataGridViewShowAllNotes.Rows.Count == 1)
+            {
+                DataGridViewRow row = dataGridViewShowAllNotes.Rows[0];
+                string details = row.Cells["Details"].Value.ToString();
+                string searchText = TextBoxQuickSearch.Text;
+                string matchingLine = FindMatchingLine(details, searchText);
+
+                if (!string.IsNullOrEmpty(matchingLine))
+                {
+                    ShowTooltip(row, matchingLine);
+                }
+            }
+            else
+            {
+                toolTipSearchFormResult.Hide(dataGridViewShowAllNotes);
+            }
+        }
+
+
+
+        private string FindMatchingLine(string details, string searchText)
+        {
+            using (StringReader reader = new StringReader(details))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (line.Contains(searchText))
+                    {
+                        return line;
+                    }
+                }
+            }
+            return string.Empty;
+        }
+
+        private void ShowTooltip(DataGridViewRow row, string text)
+        {
+            Rectangle cellRect = dataGridViewShowAllNotes.GetCellDisplayRectangle(row.Index, 0, true);
+            Point cellLocation = new Point(cellRect.X + dataGridViewShowAllNotes.Location.X, cellRect.Y + dataGridViewShowAllNotes.Location.Y);
+            toolTipSearchFormResult.Show(text, dataGridViewShowAllNotes, cellLocation.X, cellLocation.Y - 20, 5000); // Display tooltip for 5 seconds
         }
 
         private void PopulateKeywordsComboBoxSearchForm()
